@@ -1,26 +1,98 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-fraunces);
+
+  --color-page: #f4f3f6;
+  --color-ink: #2a2a2e;
+  --color-ink-soft: #6c6c75;
+  --color-muted: #9a9aa3;
+  --color-line: rgba(17, 17, 20, 0.07);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: #f4f3f6;
+  --foreground: #2a2a2e;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* prevent any decorative element (mesh, watermark) from causing horizontal scroll */
+  overflow-x: clip;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Soft pastel mesh used behind the hero */
+.hero-mesh {
+  background:
+    radial-gradient(38% 48% at 18% 8%, rgba(167, 139, 250, 0.30), transparent 72%),
+    radial-gradient(34% 44% at 82% 4%, rgba(122, 162, 247, 0.26), transparent 72%),
+    radial-gradient(46% 56% at 55% -4%, rgba(240, 168, 192, 0.24), transparent 72%),
+    radial-gradient(30% 40% at 92% 30%, rgba(141, 213, 160, 0.16), transparent 72%);
+}
+
+/* Subtle grid texture for showcase backdrops */
+.dot-grid {
+  background-image: radial-gradient(rgba(17, 17, 20, 0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Faint top highlight on dark gradient buttons/marks */
+.sheen {
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.16),
+    0 10px 24px -10px rgba(0, 0, 0, 0.55);
+}
+
+/* ---------- Demo player animations ---------- */
+@keyframes demo-fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.demo-fade-up { opacity: 0; animation: demo-fade-up 0.5s ease forwards; }
+
+@keyframes demo-pop {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+.demo-pop { opacity: 0; animation: demo-pop 0.45s ease forwards; }
+
+/* grows from 0 to the element's inline width */
+@keyframes demo-bar { from { width: 0; } }
+.demo-bar { animation: demo-bar 1s ease forwards; }
+
+@keyframes demo-progress { from { width: 0%; } to { width: 100%; } }
+.demo-progress { width: 100%; animation: demo-progress linear forwards; }
+
+@keyframes demo-spin { to { transform: rotate(360deg); } }
+.demo-spin { animation: demo-spin 0.9s linear infinite; }
+
+@keyframes demo-overlay-in { from { opacity: 0; } to { opacity: 1; } }
+.demo-overlay-in { animation: demo-overlay-in 0.2s ease forwards; }
+
+@keyframes demo-panel-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.demo-panel-in { animation: demo-panel-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-fade-up,
+  .demo-pop,
+  .demo-bar,
+  .demo-progress,
+  .demo-spin,
+  .demo-overlay-in,
+  .demo-panel-in {
+    animation: none !important;
+    opacity: 1 !important;
+  }
 }
