@@ -15,7 +15,7 @@ const steps = [
     id: "plan",
     label: "Plan",
     title: "AI designs your interview rounds",
-    desc: "devmock recreates the real interview loop — round by round.",
+    desc: "devmock recreates the real interview loop, round by round.",
   },
   {
     id: "interview",
@@ -62,18 +62,18 @@ function fade(delay: number) {
 function SetupStep() {
   return (
     <div className="mx-auto max-w-sm space-y-3">
-      <div className="demo-fade-up rounded-xl border border-line bg-white p-3" style={fade(0)}>
+      <div className="demo-fade-up rounded-xl border border-line bg-card p-3" style={fade(0)}>
         <p className="text-[10px] font-medium uppercase tracking-wide text-muted">Company</p>
-        <div className="mt-1 flex items-center gap-2 rounded-lg border border-line bg-[#fbfbfc] px-2.5 py-2">
-          <span className="flex h-5 w-5 items-center justify-center rounded-md bg-[#a78bfa] text-[9px] font-bold text-white">A</span>
+        <div className="mt-1 flex items-center gap-2 rounded-lg border border-line bg-surface px-2.5 py-2">
+          <span className="flex h-5 w-5 items-center justify-center rounded-md bg-ink text-[9px] font-bold text-page">A</span>
           <span className="text-sm font-medium text-ink">Amazon</span>
           <span className="ml-auto h-3.5 w-px animate-pulse bg-ink/40" />
         </div>
       </div>
 
-      <div className="demo-fade-up rounded-xl border border-line bg-white p-3" style={fade(220)}>
+      <div className="demo-fade-up rounded-xl border border-line bg-card p-3" style={fade(220)}>
         <p className="text-[10px] font-medium uppercase tracking-wide text-muted">Role</p>
-        <div className="mt-1 rounded-lg border border-line bg-[#fbfbfc] px-2.5 py-2 text-sm font-medium text-ink">
+        <div className="mt-1 rounded-lg border border-line bg-surface px-2.5 py-2 text-sm font-medium text-ink">
           SDE II
         </div>
       </div>
@@ -96,22 +96,22 @@ function SetupStep() {
 
 function PlanStep() {
   const rounds = [
-    { n: "Online Assessment", t: "Coding · 2 questions", c: "#a78bfa" },
-    { n: "Phone Screen", t: "Behavioral · 3 questions", c: "#7aa2f7" },
-    { n: "Onsite — System Design", t: "Design · 1 question", c: "#f5a97f" },
-    { n: "Bar Raiser", t: "Leadership · 3 questions", c: "#8bd5a0" },
+    { n: "Online Assessment", t: "Coding · 2 questions", c: "var(--c-ink)" },
+    { n: "Phone Screen", t: "Behavioral · 3 questions", c: "var(--c-ink-soft)" },
+    { n: "Onsite: System Design", t: "Design · 1 question", c: "var(--c-muted)" },
+    { n: "Bar Raiser", t: "Leadership · 3 questions", c: "#52525b" },
   ];
   return (
     <div className="mx-auto max-w-sm">
       <div className="demo-fade-up mb-3 flex items-center justify-center gap-2 text-xs text-muted" style={fade(0)}>
-        <span className="h-3.5 w-3.5 rounded-full border-2 border-line border-t-[#a78bfa] demo-spin" />
+        <span className="h-3.5 w-3.5 rounded-full border-2 border-line border-t-ink demo-spin" />
         Building your Amazon SDE II loop…
       </div>
       <div className="space-y-2">
         {rounds.map((r, i) => (
           <div
             key={r.n}
-            className="demo-fade-up flex items-center gap-3 rounded-xl border border-line bg-white px-3 py-2.5"
+            className="demo-fade-up flex items-center gap-3 rounded-xl border border-line bg-card px-3 py-2.5"
             style={fade(300 + i * 260)}
           >
             <span className="flex h-7 w-7 items-center justify-center rounded-lg text-[10px] font-bold text-white" style={{ background: r.c }}>
@@ -134,12 +134,12 @@ function InterviewStep() {
     <div className="mx-auto max-w-md space-y-3">
       <div className="demo-fade-up flex items-center justify-between" style={fade(0)}>
         <span className="text-[11px] font-medium text-ink">Round 3 of 5 · System Design</span>
-        <span className="rounded-md bg-white px-2 py-0.5 font-mono text-[10px] text-ink-soft ring-1 ring-line">24:13</span>
+        <span className="rounded-md bg-card px-2 py-0.5 font-mono text-[10px] text-ink-soft ring-1 ring-line">24:13</span>
       </div>
 
       <div className="demo-fade-up flex gap-2.5" style={fade(250)}>
         <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-b from-[#3b3b41] to-[#161619] text-[10px] font-bold text-white sheen">AI</span>
-        <div className="rounded-xl rounded-tl-sm bg-[#f1f0f4] px-3 py-2 text-[12px] leading-snug text-ink">
+        <div className="rounded-xl rounded-tl-sm bg-subtle px-3 py-2 text-[12px] leading-snug text-ink">
           Design a URL shortener that handles 100M requests per day.
         </div>
       </div>
@@ -152,12 +152,12 @@ function InterviewStep() {
 
       <div className="demo-fade-up flex gap-2.5" style={fade(2100)}>
         <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-b from-[#3b3b41] to-[#161619] text-[10px] font-bold text-white sheen">AI</span>
-        <div className="rounded-xl rounded-tl-sm bg-[#f1f0f4] px-3 py-2 text-[12px] leading-snug text-ink">
+        <div className="rounded-xl rounded-tl-sm bg-subtle px-3 py-2 text-[12px] leading-snug text-ink">
           Good. How would you handle cache invalidation under heavy writes?
         </div>
       </div>
 
-      <div className="demo-fade-up flex items-center gap-2 rounded-xl border border-line bg-[#fbfbfc] px-3 py-2" style={fade(3000)}>
+      <div className="demo-fade-up flex items-center gap-2 rounded-xl border border-line bg-surface px-3 py-2" style={fade(3000)}>
         <span className="text-[11px] font-semibold text-ink">Live feedback</span>
         <span className="rounded-full bg-[#8bd5a0]/15 px-2 py-0.5 text-[10px] font-bold text-[#16a34a]">8 / 10</span>
         <span className="ml-auto rounded-md bg-[#f5a97f]/15 px-1.5 py-0.5 text-[9px] font-medium text-[#d97706]">Δ Add rate limiting</span>
@@ -169,15 +169,15 @@ function InterviewStep() {
 function ScorecardStep({ active }: { active: boolean }) {
   const score = useCountUp(82, active, 1300);
   const cats = [
-    { label: "Coding", value: 88, color: "#a78bfa" },
-    { label: "System Design", value: 72, color: "#7aa2f7" },
-    { label: "Behavioral", value: 80, color: "#f5a97f" },
-    { label: "Communication", value: 90, color: "#8bd5a0" },
+    { label: "Coding", value: 88, color: "var(--c-ink)" },
+    { label: "System Design", value: 72, color: "var(--c-ink-soft)" },
+    { label: "Behavioral", value: 80, color: "var(--c-muted)" },
+    { label: "Communication", value: 90, color: "#52525b" },
   ];
   return (
     <div className="mx-auto max-w-md">
-      <div className="demo-fade-up flex items-center gap-4 rounded-2xl border border-line bg-white p-4" style={fade(0)}>
-        <div className="flex h-20 w-20 shrink-0 flex-col items-center justify-center rounded-full bg-gradient-to-br from-[#a78bfa]/15 to-[#7aa2f7]/15 ring-1 ring-line">
+      <div className="demo-fade-up flex items-center gap-4 rounded-2xl border border-line bg-card p-4" style={fade(0)}>
+        <div className="flex h-20 w-20 shrink-0 flex-col items-center justify-center rounded-full bg-gradient-to-br from-ink/10 to-ink/5 ring-1 ring-line">
           <span className="font-serif text-3xl font-medium leading-none text-ink">{score}</span>
           <span className="text-[9px] text-muted">/ 100</span>
         </div>
@@ -189,7 +189,7 @@ function ScorecardStep({ active }: { active: boolean }) {
         </div>
       </div>
 
-      <div className="demo-fade-up mt-3 rounded-2xl border border-line bg-white p-4" style={fade(220)}>
+      <div className="demo-fade-up mt-3 rounded-2xl border border-line bg-card p-4" style={fade(220)}>
         <p className="mb-3 text-[11px] font-semibold text-ink">Category breakdown</p>
         <div className="space-y-2.5">
           {cats.map((c) => (
@@ -198,7 +198,7 @@ function ScorecardStep({ active }: { active: boolean }) {
                 <span className="text-[11px] text-ink-soft">{c.label}</span>
                 <span className="text-[11px] font-medium text-muted">{c.value}%</span>
               </div>
-              <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-[#efeff2]">
+              <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-subtle">
                 <div className="demo-bar h-full rounded-full" style={{ width: `${c.value}%`, background: c.color }} />
               </div>
             </div>
@@ -274,7 +274,7 @@ export function DemoModal({
       aria-label="How devmock works"
     >
       <div
-        className="demo-panel-in flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-line bg-white shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)]"
+        className="demo-panel-in flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-line bg-card shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* header */}
@@ -293,7 +293,7 @@ export function DemoModal({
               type="button"
               onClick={onClose}
               aria-label="Close demo"
-              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line bg-white text-ink-soft transition-colors hover:bg-[#fbfbfc] hover:text-ink"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line bg-card text-ink-soft transition-colors hover:bg-surface hover:text-ink"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="h-4 w-4"><path d="M6 6l12 12M18 6L6 18" /></svg>
             </button>
@@ -304,11 +304,11 @@ export function DemoModal({
             {steps.map((s, i) => (
               <div key={s.id} className="h-1 flex-1 overflow-hidden rounded-full bg-line">
                 {i < active ? (
-                  <div className="h-full w-full rounded-full bg-gradient-to-r from-[#a78bfa] to-[#7aa2f7]" />
+                  <div className="h-full w-full rounded-full bg-ink" />
                 ) : i === active ? (
                   <div
                     key={`prog-${active}`}
-                    className="demo-progress h-full rounded-full bg-gradient-to-r from-[#a78bfa] to-[#7aa2f7]"
+                    className="demo-progress h-full rounded-full bg-ink"
                     style={{
                       animationDuration: `${STEP_MS}ms`,
                       animationPlayState: playing ? "running" : "paused",
@@ -323,7 +323,7 @@ export function DemoModal({
         </div>
 
         {/* stage */}
-        <div className="flex min-h-[320px] flex-1 items-center justify-center overflow-y-auto bg-[#faf9fb] px-5 py-6 sm:min-h-[360px] sm:px-6">
+        <div className="flex min-h-[320px] flex-1 items-center justify-center overflow-y-auto bg-surface px-5 py-6 sm:min-h-[360px] sm:px-6">
           <div key={current.id} className="w-full">
             {active === 0 && <SetupStep />}
             {active === 1 && <PlanStep />}
@@ -337,7 +337,7 @@ export function DemoModal({
           <button
             type="button"
             onClick={() => go(active - 1)}
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-line text-ink-soft transition-colors hover:bg-[#fbfbfc] hover:text-ink"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-line text-ink-soft transition-colors hover:bg-surface hover:text-ink"
             aria-label="Previous step"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="h-4 w-4"><path d="M15 6l-6 6 6 6" /></svg>
@@ -362,7 +362,7 @@ export function DemoModal({
               type="button"
               onClick={() => setPlaying((p) => !p)}
               aria-label={playing ? "Pause" : "Play"}
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-line text-ink-soft transition-colors hover:bg-[#fbfbfc] hover:text-ink"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-line text-ink-soft transition-colors hover:bg-surface hover:text-ink"
             >
               {playing ? (
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>

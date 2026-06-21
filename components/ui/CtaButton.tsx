@@ -12,10 +12,11 @@ const base =
   "group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all duration-200";
 
 const variants: Record<Variant, string> = {
+  // In dark mode the primary button inverts to a light pill so it stays prominent on the dark page.
   dark:
-    "bg-gradient-to-b from-[#3b3b41] to-[#161619] text-white ring-1 ring-black/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16),0_10px_24px_-10px_rgba(0,0,0,0.55)] hover:-translate-y-0.5 hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.22),0_16px_30px_-12px_rgba(0,0,0,0.6)]",
+    "bg-gradient-to-b from-[#3b3b41] to-[#161619] text-white ring-1 ring-black/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16),0_10px_24px_-10px_rgba(0,0,0,0.55)] hover:-translate-y-0.5 hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.22),0_16px_30px_-12px_rgba(0,0,0,0.6)] dark:from-white dark:to-[#dcdce0] dark:text-[#161619] dark:ring-white/20",
   light:
-    "bg-white text-ink ring-1 ring-black/10 shadow-[0_1px_2px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 hover:ring-black/20",
+    "bg-card text-ink ring-1 ring-black/10 shadow-[0_1px_2px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 hover:ring-black/20 dark:ring-white/15",
 };
 
 export function CtaButton({

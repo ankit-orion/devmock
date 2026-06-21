@@ -64,7 +64,7 @@ export function Footer() {
                   key={s.label}
                   href={s.href}
                   aria-label={s.label}
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-line bg-white text-ink-soft transition-colors hover:text-ink"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-line bg-card text-ink-soft transition-colors hover:text-ink"
                 >
                   <svg viewBox="0 0 24 24" fill="currentColor" fillRule="evenodd" clipRule="evenodd" className="h-3.5 w-3.5">
                     <path d={s.path} />
@@ -87,7 +87,7 @@ export function Footer() {
           style={{
             fontSize: "clamp(5rem, 22vw, 18rem)",
             backgroundImage:
-              "linear-gradient(to bottom, rgba(42,42,46,0.10), rgba(42,42,46,0))",
+              "linear-gradient(to bottom, var(--c-watermark), transparent)",
             WebkitBackgroundClip: "text",
             backgroundClip: "text",
             transform: "translateY(28%)",
