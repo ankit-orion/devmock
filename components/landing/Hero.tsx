@@ -5,6 +5,7 @@ import { CtaButton } from "@/components/ui/CtaButton";
 import { BrandMark, type BrandName } from "@/components/ui/BrandMark";
 import { HeroDashboard } from "./HeroDashboard";
 import { Mascot } from "@/components/mascot/Mascot";
+import { DemoTriggerButton } from "./demo/DemoTriggerButton";
 
 const brands: BrandName[] = ["Amazon", "Google", "Meta", "Microsoft", "Others"];
 
@@ -62,8 +63,9 @@ export function Hero() {
           detailed feedback, all tailored to the role you&apos;re targeting.
         </p>
 
-        <div className={`mt-6 flex items-center justify-center sm:mt-7 reveal-fade-up ${active ? "revealed" : ""} delay-200`}>
+        <div className={`mt-6 flex flex-wrap items-center justify-center gap-3 sm:mt-7 reveal-fade-up ${active ? "revealed" : ""} delay-200`}>
           <CtaButton href="/sign-up" className="px-7 py-3.5">Start Practicing</CtaButton>
+          <DemoTriggerButton variant="inline" />
         </div>
 
         {/* brand chips section */}

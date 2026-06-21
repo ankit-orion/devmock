@@ -1,5 +1,4 @@
 import { Logo } from "@/components/ui/Logo";
-import { DemoTriggerButton } from "./demo/DemoTriggerButton";
 
 type Card = {
   id: string;
@@ -256,9 +255,6 @@ export function HeroDashboard({ activeCard = null }: { activeCard?: string | nul
           </div>
         </div>
       </div>
-
-      {/* Watch demo overlay */}
-      <DemoTriggerButton variant="hero" />
     </div>
   );
 }

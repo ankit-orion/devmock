@@ -5,9 +5,26 @@ import { useDemo } from "./DemoContext";
 export function DemoTriggerButton({
   variant = "hero",
 }: {
-  variant?: "hero" | "compact";
+  variant?: "hero" | "compact" | "inline";
 }) {
   const { open } = useDemo();
+
+  if (variant === "inline") {
+    return (
+      <button
+        type="button"
+        onClick={open}
+        className="flex items-center gap-2.5 rounded-full bg-card py-2.5 pl-2 pr-4 ring-1 ring-line shadow-[0_4px_16px_-6px_rgba(0,0,0,0.15)] transition-all duration-200 hover:scale-[1.04] hover:shadow-[0_8px_24px_-8px_rgba(0,0,0,0.22)]"
+      >
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-b from-[#3b3b41] to-[#161619] sheen">
+          <svg viewBox="0 0 24 24" fill="white" className="ml-0.5 h-3.5 w-3.5">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </span>
+        <span className="text-sm font-medium text-ink">See how it works</span>
+      </button>
+    );
+  }
 
   if (variant === "compact") {
     return (
