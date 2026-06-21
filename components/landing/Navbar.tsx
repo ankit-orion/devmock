@@ -5,6 +5,13 @@ import Link from "next/link";
 import { Logo } from "@/components/ui/Logo";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
 
 const links = [
   { label: "Features", href: "#features" },
@@ -46,12 +53,35 @@ export function Navbar() {
           <div className="flex items-center gap-2">
             <ThemeToggle />
 
-            <CtaButton
-              href="/sign-up"
-              className="hidden px-5 py-2 md:inline-flex text-xs font-semibold"
-            >
-              Start Free
-            </CtaButton>
+            <SignedOut>
+              <SignInButton mode="redirect">
+                <button
+                  type="button"
+                  className="mr-1 hidden text-sm font-medium text-ink-soft transition-colors hover:text-ink md:inline-block"
+                >
+                  Log in
+                </button>
+              </SignInButton>
+
+              <SignUpButton mode="redirect">
+                <button
+                  type="button"
+                  className="hidden items-center justify-center gap-2 rounded-full px-5 py-2 text-xs font-semibold transition-all duration-200 bg-gradient-to-b from-[#3b3b41] to-[#161619] text-white ring-1 ring-black/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16),0_10px_24px_-10px_rgba(0,0,0,0.55)] hover:-translate-y-0.5 dark:from-white dark:to-[#dcdce0] dark:text-[#161619] dark:ring-white/20 md:inline-flex"
+                >
+                  Start Free
+                </button>
+              </SignUpButton>
+            </SignedOut>
+
+            <SignedIn>
+              <UserButton
+                appearance={{
+                  elements: {
+                    avatarBox: "h-8 w-8",
+                  },
+                }}
+              />
+            </SignedIn>
 
             <button
               type="button"
@@ -102,13 +132,37 @@ export function Navbar() {
                 </li>
               ))}
             </ul>
-            <CtaButton
-              href="/sign-up"
-              onClick={() => setOpen(false)}
-              className="mt-2 w-full text-xs font-semibold"
-            >
-              Start Free
-            </CtaButton>
+            <SignedOut>
+              <SignInButton mode="redirect">
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  className="mt-1 block w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium text-ink-soft transition-colors hover:bg-surface hover:text-ink"
+                >
+                  Log in
+                </button>
+              </SignInButton>
+              <SignUpButton mode="redirect">
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  className="mt-2 flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-xs font-semibold transition-all duration-200 bg-gradient-to-b from-[#3b3b41] to-[#161619] text-white ring-1 ring-black/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16),0_10px_24px_-10px_rgba(0,0,0,0.55)] dark:from-white dark:to-[#dcdce0] dark:text-[#161619] dark:ring-white/20"
+                >
+                  Start Free
+                </button>
+              </SignUpButton>
+            </SignedOut>
+
+            <SignedIn>
+              <div className="mt-2 flex items-center gap-3 rounded-lg px-3 py-2">
+                <UserButton
+                  appearance={{
+                    elements: { avatarBox: "h-8 w-8" },
+                  }}
+                />
+                <span className="text-sm font-medium text-ink">My Account</span>
+              </div>
+            </SignedIn>
           </div>
         )}
       </nav>

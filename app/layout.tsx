@@ -1,11 +1,15 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
 import "./globals.css";
 
 // Set NEXT_PUBLIC_SITE_URL to your real domain in production so share previews
 // and canonical/sitemap URLs resolve to absolute links.
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://devmock.vercel.app";
+
+// Clerk only activates once keys are present, so the app still runs without them.
+const clerkEnabled = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 const inter = Inter({
   variable: "--font-inter",
@@ -120,7 +124,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
+  const tree = (
     <html
       lang="en"
       suppressHydrationWarning
@@ -139,4 +143,6 @@ export default function RootLayout({
       </body>
     </html>
   );
+
+  return clerkEnabled ? <ClerkProvider>{tree}</ClerkProvider> : tree;
 }
