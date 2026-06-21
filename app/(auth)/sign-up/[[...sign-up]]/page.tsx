@@ -4,6 +4,7 @@ import { AuthNotConfigured } from "@/components/auth/AuthNotConfigured";
 const clerkEnabled = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 export const metadata = { title: "Sign up" };
+export const dynamic = "force-dynamic";
 
 export default function SignUpPage() {
   if (!clerkEnabled) return <AuthNotConfigured action="sign up" />;
