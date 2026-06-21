@@ -6,8 +6,7 @@ import { Logo } from "@/components/ui/Logo";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import {
-  SignedIn,
-  SignedOut,
+  Show,
   SignInButton,
   SignUpButton,
   UserButton,
@@ -53,7 +52,7 @@ export function Navbar() {
           <div className="flex items-center gap-2">
             <ThemeToggle />
 
-            <SignedOut>
+            <Show when="signed-out">
               <SignInButton mode="redirect">
                 <button
                   type="button"
@@ -71,9 +70,9 @@ export function Navbar() {
                   Start Free
                 </button>
               </SignUpButton>
-            </SignedOut>
+            </Show>
 
-            <SignedIn>
+            <Show when="signed-in">
               <UserButton
                 appearance={{
                   elements: {
@@ -81,7 +80,7 @@ export function Navbar() {
                   },
                 }}
               />
-            </SignedIn>
+            </Show>
 
             <button
               type="button"
@@ -132,7 +131,7 @@ export function Navbar() {
                 </li>
               ))}
             </ul>
-            <SignedOut>
+            <Show when="signed-out">
               <SignInButton mode="redirect">
                 <button
                   type="button"
@@ -151,9 +150,9 @@ export function Navbar() {
                   Start Free
                 </button>
               </SignUpButton>
-            </SignedOut>
+            </Show>
 
-            <SignedIn>
+            <Show when="signed-in">
               <div className="mt-2 flex items-center gap-3 rounded-lg px-3 py-2">
                 <UserButton
                   appearance={{
@@ -162,7 +161,7 @@ export function Navbar() {
                 />
                 <span className="text-sm font-medium text-ink">My Account</span>
               </div>
-            </SignedIn>
+            </Show>
           </div>
         )}
       </nav>
