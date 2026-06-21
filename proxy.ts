@@ -4,9 +4,10 @@ import { NextResponse } from "next/server";
 // Routes that require authentication.
 const isProtectedRoute = createRouteMatcher(["/dashboard(.*)", "/interview(.*)"]);
 
-// Clerk only enforces auth once keys are configured; otherwise this is a no-op
-// so the app keeps running during development.
-const clerkEnabled = !!process.env.CLERK_SECRET_KEY;
+// Gate on the publishable key so the proxy, the ClerkProvider, and client
+// components all agree on whether Clerk is active. (Set BOTH the publishable
+// and secret keys together — they always come as a pair from Clerk.)
+const clerkEnabled = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 export default clerkEnabled
   ? clerkMiddleware(async (auth, req) => {

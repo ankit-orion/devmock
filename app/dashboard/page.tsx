@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { CtaButton } from "@/components/ui/CtaButton";
 
+// The dashboard is user-specific and renders Clerk UI, so it must render
+// dynamically (never statically prerendered at build time).
+export const dynamic = "force-dynamic";
+
 const stats = [
   { label: "Interviews", value: "12", sub: "+3 this week", accent: "#a78bfa" },
   { label: "Avg. score", value: "78", sub: "out of 100", accent: "#7aa2f7" },
