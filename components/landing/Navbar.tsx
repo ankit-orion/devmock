@@ -12,6 +12,11 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 
+// Clerk components require <ClerkProvider>, which is only mounted when keys are
+// configured. Gate Clerk UI on the same flag so the page still builds/renders
+// (with plain links) when Clerk isn't configured (e.g. on a deploy missing keys).
+const clerkEnabled = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
 const links = [
   { label: "Features", href: "#features" },
   { label: "Pricing", href: "#pricing" },
@@ -52,35 +57,45 @@ export function Navbar() {
           <div className="flex items-center gap-2">
             <ThemeToggle />
 
-            <Show when="signed-out">
-              <SignInButton mode="redirect">
-                <button
-                  type="button"
+            {clerkEnabled ? (
+              <>
+                <Show when="signed-out">
+                  <SignInButton mode="redirect">
+                    <button
+                      type="button"
+                      className="mr-1 hidden text-sm font-medium text-ink-soft transition-colors hover:text-ink md:inline-block"
+                    >
+                      Log in
+                    </button>
+                  </SignInButton>
+
+                  <SignUpButton mode="redirect">
+                    <button
+                      type="button"
+                      className="hidden items-center justify-center gap-2 rounded-full px-5 py-2 text-xs font-semibold transition-all duration-200 bg-gradient-to-b from-[#3b3b41] to-[#161619] text-white ring-1 ring-black/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16),0_10px_24px_-10px_rgba(0,0,0,0.55)] hover:-translate-y-0.5 dark:from-white dark:to-[#dcdce0] dark:text-[#161619] dark:ring-white/20 md:inline-flex"
+                    >
+                      Start Free
+                    </button>
+                  </SignUpButton>
+                </Show>
+
+                <Show when="signed-in">
+                  <UserButton appearance={{ elements: { avatarBox: "h-8 w-8" } }} />
+                </Show>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/sign-in"
                   className="mr-1 hidden text-sm font-medium text-ink-soft transition-colors hover:text-ink md:inline-block"
                 >
                   Log in
-                </button>
-              </SignInButton>
-
-              <SignUpButton mode="redirect">
-                <button
-                  type="button"
-                  className="hidden items-center justify-center gap-2 rounded-full px-5 py-2 text-xs font-semibold transition-all duration-200 bg-gradient-to-b from-[#3b3b41] to-[#161619] text-white ring-1 ring-black/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16),0_10px_24px_-10px_rgba(0,0,0,0.55)] hover:-translate-y-0.5 dark:from-white dark:to-[#dcdce0] dark:text-[#161619] dark:ring-white/20 md:inline-flex"
-                >
+                </Link>
+                <CtaButton href="/sign-up" className="hidden px-5 py-2 md:inline-flex text-xs font-semibold">
                   Start Free
-                </button>
-              </SignUpButton>
-            </Show>
-
-            <Show when="signed-in">
-              <UserButton
-                appearance={{
-                  elements: {
-                    avatarBox: "h-8 w-8",
-                  },
-                }}
-              />
-            </Show>
+                </CtaButton>
+              </>
+            )}
 
             <button
               type="button"
@@ -131,37 +146,51 @@ export function Navbar() {
                 </li>
               ))}
             </ul>
-            <Show when="signed-out">
-              <SignInButton mode="redirect">
-                <button
-                  type="button"
+
+            {clerkEnabled ? (
+              <>
+                <Show when="signed-out">
+                  <SignInButton mode="redirect">
+                    <button
+                      type="button"
+                      onClick={() => setOpen(false)}
+                      className="mt-1 block w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium text-ink-soft transition-colors hover:bg-surface hover:text-ink"
+                    >
+                      Log in
+                    </button>
+                  </SignInButton>
+                  <SignUpButton mode="redirect">
+                    <button
+                      type="button"
+                      onClick={() => setOpen(false)}
+                      className="mt-2 flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-xs font-semibold transition-all duration-200 bg-gradient-to-b from-[#3b3b41] to-[#161619] text-white ring-1 ring-black/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16),0_10px_24px_-10px_rgba(0,0,0,0.55)] dark:from-white dark:to-[#dcdce0] dark:text-[#161619] dark:ring-white/20"
+                    >
+                      Start Free
+                    </button>
+                  </SignUpButton>
+                </Show>
+
+                <Show when="signed-in">
+                  <div className="mt-2 flex items-center gap-3 rounded-lg px-3 py-2">
+                    <UserButton appearance={{ elements: { avatarBox: "h-8 w-8" } }} />
+                    <span className="text-sm font-medium text-ink">My Account</span>
+                  </div>
+                </Show>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/sign-in"
                   onClick={() => setOpen(false)}
-                  className="mt-1 block w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium text-ink-soft transition-colors hover:bg-surface hover:text-ink"
+                  className="mt-1 block rounded-lg px-3 py-2.5 text-sm font-medium text-ink-soft transition-colors hover:bg-surface hover:text-ink"
                 >
                   Log in
-                </button>
-              </SignInButton>
-              <SignUpButton mode="redirect">
-                <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  className="mt-2 flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-xs font-semibold transition-all duration-200 bg-gradient-to-b from-[#3b3b41] to-[#161619] text-white ring-1 ring-black/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16),0_10px_24px_-10px_rgba(0,0,0,0.55)] dark:from-white dark:to-[#dcdce0] dark:text-[#161619] dark:ring-white/20"
-                >
+                </Link>
+                <CtaButton href="/sign-up" onClick={() => setOpen(false)} className="mt-2 w-full text-xs font-semibold">
                   Start Free
-                </button>
-              </SignUpButton>
-            </Show>
-
-            <Show when="signed-in">
-              <div className="mt-2 flex items-center gap-3 rounded-lg px-3 py-2">
-                <UserButton
-                  appearance={{
-                    elements: { avatarBox: "h-8 w-8" },
-                  }}
-                />
-                <span className="text-sm font-medium text-ink">My Account</span>
-              </div>
-            </Show>
+                </CtaButton>
+              </>
+            )}
           </div>
         )}
       </nav>
