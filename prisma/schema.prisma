@@ -1,0 +1,157 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum InterviewType {
+  CODING
+  SYSTEM_DESIGN
+  BEHAVIORAL
+  MIXED
+}
+
+enum Difficulty {
+  JUNIOR
+  MID
+  SENIOR
+}
+
+enum SessionStatus {
+  IN_PROGRESS
+  COMPLETED
+  ABANDONED
+}
+
+enum RoundStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum QuestionSource {
+  BANK
+  GENERATED
+  RESUME_BASED
+}
+
+model InterviewSession {
+  id             String        @id @default(cuid())
+  userId         String // Clerk user id
+  company        String?
+  role           String
+  jobDescription String?       @db.Text
+  difficulty     Difficulty    @default(MID)
+  focus          InterviewType @default(MIXED)
+  status         SessionStatus @default(IN_PROGRESS)
+
+  resumeId String?
+  resume   Resume? @relation(fields: [resumeId], references: [id])
+
+  // current position in the loop
+  currentRound Int @default(0)
+
+  // final scorecard
+  overallScore   Int?
+  verdict        String?  @db.Text
+  summary        String?  @db.Text
+  categoryScores Json? // { Coding: 88, "System Design": 72, ... }
+  strengths      Json? // string[]
+  improvements   Json? // string[]
+
+  // usage tracking
+  inputTokens  Int @default(0)
+  outputTokens Int @default(0)
+
+  createdAt   DateTime  @default(now())
+  completedAt DateTime?
+
+  rounds Round[]
+
+  @@index([userId])
+}
+
+model Round {
+  id         String        @id @default(cuid())
+  sessionId  String
+  session    InterviewSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  name        String
+  type        InterviewType
+  focusAreas  Json // string[]
+  order       Int
+  targetCount Int           @default(1) // primary questions planned for this round
+  status      RoundStatus   @default(PENDING)
+  score       Int?
+  feedback    String?       @db.Text
+
+  questions Question[]
+
+  @@index([sessionId])
+}
+
+model Question {
+  id               String         @id @default(cuid())
+  roundId          String
+  round            Round          @relation(fields: [roundId], references: [id], onDelete: Cascade)
+  parentQuestionId String?
+  parent           Question?      @relation("FollowUps", fields: [parentQuestionId], references: [id], onDelete: SetNull)
+  followUps        Question[]     @relation("FollowUps")
+  text             String         @db.Text
+  order            Int
+  category         String?
+  source           QuestionSource @default(GENERATED)
+
+  answer Answer?
+
+  @@index([roundId])
+}
+
+model Answer {
+  id          String   @id @default(cuid())
+  questionId  String   @unique
+  question    Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  content     String   @db.Text
+  language    String?
+  score       Int?
+  strengths   Json? // string[]
+  weaknesses  Json? // string[]
+  feedback    String?  @db.Text
+  submittedAt DateTime @default(now())
+}
+
+model Resume {
+  id               String   @id @default(cuid())
+  userId           String
+  fileName         String?
+  rawText          String   @db.Text
+  parsedSkills     Json?
+  parsedProjects   Json?
+  parsedExperience Json?
+  createdAt        DateTime @default(now())
+
+  sessions InterviewSession[]
+
+  @@index([userId])
+}
+
+// ---- Seeded reference data ----
+
+model CompanyInterviewTemplate {
+  id      String  @id @default(cuid())
+  company String  @unique
+  rounds  Json // { name, type, focusAreas, count, notes }[]
+  notes   String? @db.Text
+}
+
+model QuestionBankEntry {
+  id       String  @id @default(cuid())
+  company  String?
+  role     String?
+  category String
+  text     String  @db.Text
+
+  @@index([company, category])
+}
